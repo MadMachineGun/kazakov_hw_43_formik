@@ -17,7 +17,7 @@ export default function FormikForm() {
     const validateEmail = (value) => {
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!value) {
-            return 'Email is required';
+            return 'Email is required!';
         } else if (!emailRegex.test(value)) {
             return 'Invalid email format';
         }
@@ -27,7 +27,7 @@ export default function FormikForm() {
     const validatePhone = (value) => {
         const phoneRegex = /^\+380\d{9}$/;
         if (!value) {
-            return 'Phone is required';
+            return 'Phone is required!';
         } else if (!phoneRegex.test(value)) {
             return 'Invalid phone format. Please use +380000000000';
         }
