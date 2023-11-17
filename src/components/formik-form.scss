@@ -1,7 +1,5 @@
 
 body {
-  margin: 0;
-  padding: 0;
   background-color: #f0f0f0;
   display: flex;
   justify-content: center;
@@ -18,7 +16,8 @@ body {
   align-items: center;
   flex-direction: column;
   min-height: 50vh;
-  border: solid 1px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
 
   form.form {
     border: none;
