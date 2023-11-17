@@ -1,36 +1,95 @@
 
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #f0f0f0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
 .form {
   max-width: 400px;
-  margin: 0 auto;
+  margin: 1em;
   background-color: #d9f9fe;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
   min-height: 50vh;
+  border: solid 1px;
 
-  span {
-    display: block;
-    margin-bottom: 5px;
+  form.form {
+    border: none;
   }
 
-  input {
-    width: 100%;
-    padding: 8px;
-    margin-bottom: 15px;
-  }
+  .form-group {
+    margin-bottom: 20px;
 
-  .error {
-    color: red;
-    margin-top: 5px;
+    label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+
+    input {
+      width: 100%;
+      padding: 8px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+
+      &:hover,
+      &:focus {
+        border-color: #4CAF50;
+        outline: none;
+      }
+    }
+
+    .error {
+      color: #ff0000;
+      font-size: 14px;
+      margin-top: 5px;
+    }
   }
 
   button {
-    background-color: #4caf50;
-    color: white;
+    background-color: #4CAF50;
+    color: #fff;
     padding: 10px 15px;
     border: none;
-    cursor: pointer;
     border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+
+    &:hover {
+      background-color: #45a049;
+    }
+  }
+
+  .success-popup {
+    background-color: #4CAF50;
+    color: #fff;
+    padding: 20px;
+    border-radius: 4px;
+    text-align: center;
+    margin-top: 20px;
+
+    button {
+      background-color: #fff;
+      color: #4CAF50;
+      padding: 8px 10px;
+      border: 1px solid #4CAF50;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 14px;
+      margin-top: 10px;
+
+      &:hover {
+        background-color: #4CAF50;
+        color: #fff;
+      }
+    }
   }
 }

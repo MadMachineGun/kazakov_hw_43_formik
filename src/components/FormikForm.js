@@ -1,24 +1,41 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Form, Field, Formik } from 'formik';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import './formik-form.scss';
 
 export default function FormikForm() {
-    const submitForm = (values) => {
-        console.log(values);
+    const [isSubmitted, setSubmitted] = useState(false);
+
+    const submitForm = (values, { resetForm }) => {
+
+        setSubmitted(true);
+        resetForm();
+        toast.success('Registration successful! Thank you.');
     };
 
     const validateEmail = (value) => {
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        return emailRegex.test(value)
-            ? undefined
-            : 'Invalid email format';
+        if (!value) {
+            return 'Email is required';
+        } else if (!emailRegex.test(value)) {
+            return 'Invalid email format';
+        }
+        return undefined;
     };
 
     const validatePhone = (value) => {
-        const phoneRegex = /^\d{12}$/;
-        return phoneRegex.test(value)
-            ? undefined
-            : 'Only digits allowed and length must be 12';
+        const phoneRegex = /^\+380\d{9}$/;
+        if (!value) {
+            return 'Phone is required';
+        } else if (!phoneRegex.test(value)) {
+            return 'Invalid phone format. Please use +380000000000';
+        }
+        return undefined;
+    };
+
+    const handleCloseSuccess = () => {
+        setSubmitted(false);
     };
 
     return (
@@ -32,18 +49,45 @@ export default function FormikForm() {
                         telNumber: '',
                     }}
                     onSubmit={submitForm}>
-                    <Form className='form'>
-                        <span>First Name</span>
-                        <Field type='text' name='firstName' />
-                        <span>Surname</span>
-                        <Field type='text' name='surName' />
-                        <span>Email</span>
-                        <Field type='text' name='eMail' validate={validateEmail} />
-                        <span>Phone</span>
-                        <Field type='text' name='telNumber' validate={validatePhone} />
-                        <button type='submit'>Sign in</button>
-                    </Form>
+                    {(formik) => (
+                        <Form className='form'>
+                            <div className="form-group">
+                                <label htmlFor="firstName">First Name:</label>
+                                <Field type='text' name='firstName' />
+                                {formik.touched.firstName && !formik.values.firstName ? (
+                                    <div className="error">Name is required!</div>
+                                ) : null}
+                            </div>
+                            <div className="form-group">
+                                <label htmlFor="surName">Surname:</label>
+                                <Field type='text' name='surName' />
+                                {formik.touched.surName && !formik.values.surName ? (
+                                    <div className="error">Surname is required!</div>
+                                ) : null}
+                            </div>
+                            <div className="form-group">
+                                <label htmlFor="eMail">Email:</label>
+                                <Field type='text' name='eMail' placeholder="example@example.com" validate={validateEmail} />
+                                {formik.touched.eMail && formik.errors.eMail ? (
+                                    <div className="error">{formik.errors.eMail}</div>
+                                ) : null}
+                            </div>
+                            <div className="form-group">
+                                <label htmlFor="telNumber">Phone:</label>
+                                <Field type='text' name='telNumber' placeholder="+380000000000" validate={validatePhone} />
+                                {formik.touched.telNumber && formik.errors.telNumber ? (
+                                    <div className="error">{formik.errors.telNumber}</div>
+                                ) : null}
+                            </div>
+                            {isSubmitted ? (
+                                <button type='button' onClick={handleCloseSuccess}>Close</button>
+                            ) : (
+                                <button type='submit'>Sign in</button>
+                            )}
+                        </Form>
+                    )}
                 </Formik>
+                <ToastContainer />
             </div>
         </>
     );
