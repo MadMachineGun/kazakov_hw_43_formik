@@ -9,16 +9,16 @@ export default function FormikForm() {
 
     const validateEmail = (value) => {
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        return !value || emailRegex.test(value)
+        return emailRegex.test(value)
             ? undefined
-            : 'Некоректний формат email';
+            : 'Invalid email format';
     };
 
     const validatePhone = (value) => {
         const phoneRegex = /^\d{12}$/;
-        return !value || phoneRegex.test(value)
+        return phoneRegex.test(value)
             ? undefined
-            : 'Тільки цифри та довжина 12';
+            : 'Only digits allowed and length must be 12';
     };
 
     return (
@@ -37,9 +37,9 @@ export default function FormikForm() {
                         <Field type='text' name='firstName' />
                         <span>Surname</span>
                         <Field type='text' name='surName' />
-                        <span>e-mail</span>
+                        <span>Email</span>
                         <Field type='text' name='eMail' validate={validateEmail} />
-                        <span>Tel.</span>
+                        <span>Phone</span>
                         <Field type='text' name='telNumber' validate={validatePhone} />
                         <button type='submit'>Sign in</button>
                     </Form>
